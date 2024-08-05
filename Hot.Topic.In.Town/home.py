@@ -60,11 +60,11 @@ if choice == "SEARCH":
     import re
 
     def reassemble_file(chunk_prefix, output_file_path, input_dir='model'):
-    chunk_files = sorted([f for f in os.listdir(input_dir) if f.startswith(chunk_prefix)])
-    with open(output_file_path, 'wb') as output_file:
-        for chunk_file_name in chunk_files:
-            with open(os.path.join(input_dir, chunk_file_name), 'rb') as chunk_file:
-                output_file.write(chunk_file.read())
+        chunk_files = sorted([f for f in os.listdir(input_dir) if f.startswith(chunk_prefix)])
+        with open(output_file_path, 'wb') as output_file:
+            for chunk_file_name in chunk_files:
+                with open(os.path.join(input_dir, chunk_file_name), 'rb') as chunk_file:
+                    output_file.write(chunk_file.read())
 
     # Function to load the model from the combined bytes
     def load_model():
