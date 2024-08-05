@@ -129,7 +129,7 @@ if choice == "SEARCH":
     top_articles = None
 
     def run_scrapy_script(country):
-        result = subprocess.run(["python", "Hot.Topic.In.Town\RunSpider.py", country], capture_output=True, text=True)
+        result = subprocess.run(["python", "Hot.Topic.In.Town/RunSpider.py", country], capture_output=True, text=True)
         return result.stdout
 
 
