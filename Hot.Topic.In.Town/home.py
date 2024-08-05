@@ -68,7 +68,7 @@ if choice == "SEARCH":
 
     # Function to load the model from the combined bytes
     def load_model():
-        output_file_path = '../bert2bertMK/model.safetensors'  # Path for the reassembled model
+        output_file_path = './bert2bertMK/model.safetensors'  # Path for the reassembled model
         chunk_prefix = 'model.safetensors_chunk_'
         reassemble_file(chunk_prefix, output_file_path, input_dir='./bert2bertMK/model')
     
