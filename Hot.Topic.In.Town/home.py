@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 from transformers import TFAutoModelForSeq2SeqLM, AutoTokenizer
 import io
+import RunSpider as run
 
 menu = ["HOME", "SEARCH"]
 choice = st.sidebar.selectbox("Menu", menu)
@@ -138,7 +139,7 @@ if choice == "SEARCH":
     scrape_button = st.button("Get Trending News")
 
     if scrape_button and country:
-        output = run_scrapy_script(country)
+        output = run.run_spider(country)
         st.success("Scraping completed!")
         
 
