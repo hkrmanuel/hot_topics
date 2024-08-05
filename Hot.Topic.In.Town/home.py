@@ -73,7 +73,7 @@ if choice == "SEARCH":
         reassemble_file(chunk_prefix, output_file_path, input_dir='./bert2bertMK/model')
     
         # Load the model and tokenizer
-        tokenizer = AutoTokenizer.from_pretrained('../bert2bertMK')
+        tokenizer = AutoTokenizer.from_pretrained('./bert2bertMK')
         model = TFAutoModelForSeq2SeqLM.from_pretrained('./bert2bertMK')
     
         return model, tokenizer
