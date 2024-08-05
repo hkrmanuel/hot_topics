@@ -70,11 +70,11 @@ if choice == "SEARCH":
     def load_model():
         output_file_path = '../bert2bertMK/model.safetensors'  # Path for the reassembled model
         chunk_prefix = 'model.safetensors_chunk_'
-        reassemble_file(chunk_prefix, output_file_path, input_dir='../bert2bertMK/model')
+        reassemble_file(chunk_prefix, output_file_path, input_dir='./bert2bertMK/model')
     
         # Load the model and tokenizer
         tokenizer = AutoTokenizer.from_pretrained('../bert2bertMK')
-        model = TFAutoModelForSeq2SeqLM.from_pretrained('../bert2bertMK')
+        model = TFAutoModelForSeq2SeqLM.from_pretrained('./bert2bertMK')
     
         return model, tokenizer
 
