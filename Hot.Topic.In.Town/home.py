@@ -4,7 +4,7 @@ import sqlite3
 import pandas as pd
 import subprocess
 import os
-import newsscraper2 as ns
+import newsspider101 as ns
 from pathlib import Path
 from transformers import TFAutoModelForSeq2SeqLM, AutoTokenizer
 import io
