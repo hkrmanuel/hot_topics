@@ -60,44 +60,25 @@ if choice ==  "HOME":
 if choice == "SEARCH":
     import re
 
-    def load_parts(prefix, directory):
-        from pathlib import Path
-        
-        path = Path(directory)
-        parts = list(path.glob(f"{prefix}*"))
-        
-        def get_sort_key(part):
-            # Extract the numeric suffix from the filename
-            try:
-                return int(part.stem.split("_")[-1])
-            except ValueError:
-                # Handle cases where the suffix is not an integer
-                return float('inf')  # or some other appropriate value to sort it last
+    def reassemble_file(chunk_prefix, output_file_path, input_dir='model'):
+        chunk_files = sorted([f for f in os.listdir(input_dir) if f.startswith(chunk_prefix)])
+        with open(output_file_path, 'wb') as output_file:
+            for chunk_file_name in chunk_files:
+                with open(os.path.join(input_dir, chunk_file_name), 'rb') as chunk_file:
+                    output_file.write(chunk_file.read())
 
-        parts.sort(key=get_sort_key)
-        
-        # Combine parts into a single data structure
-        combined_data = b''.join(part.read_bytes() for part in parts)
-        return combined_data
+# Function to load the model from the combined bytes
+def load_model():
+    output_file_path = '../bert2bertMK/model.safetensors'  # Path for the reassembled model
+    chunk_prefix = 'model.safetensors_chunk_'
+    reassemble_file(chunk_prefix, output_file_path, input_dir='../bert2bertMK/model')
 
+    # Load the model and tokenizer
+    tokenizer = AutoTokenizer.from_pretrained('../bert2bertMK')
+    model = TFAutoModelForSeq2SeqLM.from_pretrained('../bert2bertMK')
 
-    # Function to load the model from the combined bytes
-    def load_model():
-        # Combine parts into a single byte stream
-        combined_data = load_parts("model.safetensors_chunk_", "./bert2bertMK/model")
-        
-        # Define the path for the temporary file within the bert2bertMK directory
-        temp_file_path = './bert2bertMK/model.safetensors'
-        
-        # Save the combined data to the temporary file
-        with open(temp_file_path, 'wb') as f:
-            f.write(combined_data)
-        
-        # Load the model and tokenizer
-        tokenizer = AutoTokenizer.from_pretrained('./bert2bertMK')
-        model = TFAutoModelForSeq2SeqLM.from_pretrained('./bert2bertMK')
+    return model, tokenizer
 
-        return model, tokenizer
 
     # Example usage
     output_file_path = './bert2bertMK/reassembled_model.safetensors'  # Path for the reassembled model
