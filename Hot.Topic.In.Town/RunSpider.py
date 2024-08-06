@@ -6,6 +6,7 @@ from twisted.internet import reactor
 from twisted.internet.defer import inlineCallbacks
 from scrapy.utils.log import configure_logging
 import logging
+import sys
 
 # Configure logging for Scrapy
 configure_logging()
