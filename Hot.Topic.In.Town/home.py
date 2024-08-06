@@ -5,6 +5,7 @@ import pandas as pd
 from transformers import TFAutoModelForSeq2SeqLM, AutoTokenizer
 import os
 import io
+import subprocess
 import RunSpider as run
 
 menu = ["HOME", "SEARCH"]
@@ -92,13 +93,17 @@ if choice == "SEARCH":
         with st.spinner(f"Fetching news for {country}..."):
             run.run_spider(country)
             st.success(f"Scraping completed for {country}!")
+            
+    def run_scrapy_script(country):
+        result = subprocess.run(["python", "Hot.Topic.In.Town/RunSpider.py", country], capture_output=True, text=True)
+        return result.stdout
 
     st.subheader("FIND THE TOP TRENDS OF AFRICAN COUNTRIES")
     country = st.text_input("Enter Country For News")
     scrape_button = st.button("Get Trending News")
 
     if scrape_button and country:
-        run_spider_task(country)
+        run_scrapy_script(country)
 
         conn = sqlite3.connect('newsData.db')
         newsdata = news.load_and_clean_data(conn)
