@@ -25,4 +25,5 @@ def run_spider(country):
             logger.error(f"An error occurred: {e}")
 
     crawl()
-    reactor.run(installSignalHandlers=False)
+
+reactor.run(installSignalHandlers=False)
