@@ -1,6 +1,6 @@
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
-from twisted.internet import reactor, task
+from twisted.internet import reactor
 from twisted.internet.defer import inlineCallbacks
 from newsspider.spiders.news_scraper import TrendsNewsSpider
 from scrapy.utils.log import configure_logging
@@ -15,7 +15,10 @@ def crawl(runner, country):
 
 def run_spider(country):
     runner = CrawlerRunner(get_project_settings())
-    task.react(lambda: crawl(runner, country))
+    # Call the crawl function and start the reactor
+    reactor.callLater(0, lambda: crawl(runner, country))
+    reactor.run(installSignalHandlers=False)
+
 
 
 '''if __name__ == "__main__":
