@@ -15,8 +15,8 @@ def crawl(runner, country):
 
 def run_spider(country):
     runner = CrawlerRunner(get_project_settings())
-    # Call the crawl function and start the reactor
-    reactor.callLater(0, lambda: crawl(runner, country))
+    d = crawl(runner, country)
+    d.addBoth(lambda _: reactor.stop())
     reactor.run(installSignalHandlers=False)
 
 
