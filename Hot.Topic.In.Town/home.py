@@ -90,9 +90,8 @@ if choice == "SEARCH":
     top_articles = None
 
     def run_spider_task(country):
-        with st.spinner(f"Fetching news for {country}..."):
-            run.run_spider(country)
-            st.success(f"Scraping completed for {country}!")
+        run.run_spider(country)
+        st.success(f"Scraping completed for {country}!")
             
     st.subheader("FIND THE TOP TRENDS OF AFRICAN COUNTRIES")
     country = st.text_input("Enter Country For News")
