@@ -1,25 +1,30 @@
 # run_spider.py
-from scrapy.crawler import CrawlerRunner
+from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
+from newsspider.spiders.news_scraper import TrendsNewsSpider
 from twisted.internet import reactor
 from twisted.internet.defer import inlineCallbacks
-from newsspider.spiders.news_scraper import TrendsNewsSpider
 from scrapy.utils.log import configure_logging
-import sys
+import logging
 
 # Configure logging for Scrapy
 configure_logging()
-
-@inlineCallbacks
-def crawl(runner, country):
-    yield runner.crawl(TrendsNewsSpider, country=country)
-    reactor.stop()
+logger = logging.getLogger(__name__)
 
 def run_spider(country):
-    runner = CrawlerRunner(get_project_settings())
-    crawl(runner, country)
-    reactor.run(installSignalHandlers=False)
+    settings = get_project_settings()
+    process = CrawlerProcess(settings)
 
+    @inlineCallbacks
+    def crawl():
+        try:
+            yield process.crawl(TrendsNewsSpider, country=country)
+            process.start()
+        except Exception as e:
+            logger.error(f"An error occurred: {e}")
+
+    crawl()
+    reactor.run() 
 
 if __name__ == "__main__":
     country = sys.argv[1]
