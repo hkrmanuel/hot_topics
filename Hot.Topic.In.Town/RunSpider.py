@@ -17,11 +17,8 @@ def run_spider(country):
 
     @inlineCallbacks
     def crawl():
-        try:
             yield process.crawl(TrendsNewsSpider, country=country)
             process.start()
-        except Exception as e:
-            logger.error(f"An error occurred: {e}")
 
     crawl()
 
