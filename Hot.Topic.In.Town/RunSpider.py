@@ -25,4 +25,3 @@ def run_spider(country):
             logger.error(f"An error occurred: {e}")
 
     crawl()
-    reactor.run() 
