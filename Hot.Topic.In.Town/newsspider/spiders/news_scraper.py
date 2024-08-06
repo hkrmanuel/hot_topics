@@ -88,7 +88,6 @@ class TrendsNewsSpider(scrapy.Spider):
     def closed(self, reason):
         df = pd.DataFrame(self.data)
         conn = sql.connect('newsData.db')
-        df.to_csv('newsData.csv', index=False)
         df.to_sql('news', conn, if_exists='replace', index=False)
         conn.commit()
         conn.close()
