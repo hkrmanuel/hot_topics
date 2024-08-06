@@ -67,31 +67,31 @@ if choice == "SEARCH":
                 with open(os.path.join(input_dir, chunk_file_name), 'rb') as chunk_file:
                     output_file.write(chunk_file.read())
 
-# Function to load the model from the combined bytes
-def load_model():
-    output_file_path = '../bert2bertMK/model.safetensors'  # Path for the reassembled model
-    chunk_prefix = 'model.safetensors_chunk_'
-    reassemble_file(chunk_prefix, output_file_path, input_dir='../bert2bertMK/model')
+    # Function to load the model from the combined bytes
+    def load_model():
+        output_file_path = '../bert2bertMK/model.safetensors'  # Path for the reassembled model
+        chunk_prefix = 'model.safetensors_chunk_'
+        reassemble_file(chunk_prefix, output_file_path, input_dir='../bert2bertMK/model')
 
-    # Load the model and tokenizer
-    tokenizer = AutoTokenizer.from_pretrained('../bert2bertMK')
-    model = TFAutoModelForSeq2SeqLM.from_pretrained('../bert2bertMK')
+        # Load the model and tokenizer
+        tokenizer = AutoTokenizer.from_pretrained('../bert2bertMK')
+        model = TFAutoModelForSeq2SeqLM.from_pretrained('../bert2bertMK')
 
-    return model, tokenizer
-
-
-    # Example usage
-    output_file_path = './bert2bertMK/reassembled_model.safetensors'  # Path for the reassembled model
-    chunk_prefix = 'model.safetensors_chunk_'
+        return model, tokenizer
 
 
-    # Main title
-    st.title("Search for Trending Topics")
+        # Example usage
+        output_file_path = './bert2bertMK/reassembled_model.safetensors'  # Path for the reassembled model
+        chunk_prefix = 'model.safetensors_chunk_'
 
 
-    # Additional functionalities can be added here
+        # Main title
+        st.title("Search for Trending Topics")
 
-    # Run this app with `streamlit run search.py`
+
+        # Additional functionalities can be added here
+
+        # Run this app with `streamlit run search.py`
 
     with st.expander("HOW TO USE?"):
         st.markdown(
