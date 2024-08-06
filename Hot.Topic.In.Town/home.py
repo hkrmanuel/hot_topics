@@ -87,7 +87,6 @@ if choice == "SEARCH":
         )
 
     top_articles = None
-    countries = []
 
     def run_spider_task(country):
         with st.spinner(f"Fetching news for {country}..."):
@@ -99,9 +98,7 @@ if choice == "SEARCH":
     scrape_button = st.button("Get Trending News")
 
     if scrape_button and country:
-        if country not in countries:
-            countries.append(country)
-            run_spider_task(country)
+        run_spider_task(country)
 
         conn = sqlite3.connect('newsData.db')
         newsdata = news.load_and_clean_data(conn)

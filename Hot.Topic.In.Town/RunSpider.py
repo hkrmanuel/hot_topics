@@ -1,5 +1,5 @@
 # run_spider.py
-from scrapy.crawler import CrawlerRunner
+from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from newsspider.spiders.news_scraper import TrendsNewsSpider
 from twisted.internet import reactor
@@ -13,17 +13,18 @@ logger = logging.getLogger(__name__)
 
 def run_spider(country):
     settings = get_project_settings()
-    runner = CrawlerRunner(settings)
+    process = CrawlerProcess(settings)
 
     @inlineCallbacks
     def crawl():
         try:
-            yield runner.crawl(TrendsNewsSpider, country=country)
-            runner.start()
+            yield process.crawl(TrendsNewsSpider, country=country)
+            process.start()
         except Exception as e:
             logger.error(f"An error occurred: {e}")
 
     crawl()
+    reactor.run()
 
 
 
