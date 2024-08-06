@@ -95,8 +95,9 @@ if choice == "SEARCH":
             st.success(f"Scraping completed for {country}!")
             
     def run_scrapy_script(country):
-        result = subprocess.run(["python", "Hot.Topic.In.Town/RunSpider.py", country], capture_output=True, text=True)
-        return result.stdout
+        with st.spinner(f"Fetching news for {country}..."):
+            result = subprocess.run(["python", "Hot.Topic.In.Town/RunSpider.py", country], capture_output=True, text=True)
+            return result.stdout
 
     st.subheader("FIND THE TOP TRENDS OF AFRICAN COUNTRIES")
     country = st.text_input("Enter Country For News")
