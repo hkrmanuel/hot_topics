@@ -69,13 +69,13 @@ if choice == "SEARCH":
 
     # Function to load the model from the combined bytes
     def load_model():
-        output_file_path = '../bert2bertMK/model.safetensors'  # Path for the reassembled model
+        output_file_path = './bert2bertMK/model.safetensors'  # Path for the reassembled model
         chunk_prefix = 'model.safetensors_chunk_'
-        reassemble_file(chunk_prefix, output_file_path, input_dir='../bert2bertMK/model')
+        reassemble_file(chunk_prefix, output_file_path, input_dir='./bert2bertMK/model')
 
         # Load the model and tokenizer
-        tokenizer = AutoTokenizer.from_pretrained('../bert2bertMK')
-        model = TFAutoModelForSeq2SeqLM.from_pretrained('../bert2bertMK')
+        tokenizer = AutoTokenizer.from_pretrained('./bert2bertMK')
+        model = TFAutoModelForSeq2SeqLM.from_pretrained('./bert2bertMK')
 
         return model, tokenizer
 
