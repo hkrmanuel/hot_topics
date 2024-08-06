@@ -26,7 +26,3 @@ def run_spider(country):
 
     crawl()
     reactor.run() 
-
-if __name__ == "__main__":
-    country = sys.argv[1]
-    run_spider(country)
