@@ -21,6 +21,6 @@ def run_spider(country):
     reactor.run(installSignalHandlers=False)
 
 
-'''if __name__ == "__main__":
+if __name__ == "__main__":
     country = sys.argv[1]
-    run_spider(country)'''
+    run_spider(country)
